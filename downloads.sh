@@ -1,8 +1,12 @@
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo "Not running as root"
+    exit
+fi
 echo "Please Pick an option:"
 echo "1) On a target machine"
 echo "2) On a host machine"
 read -p "Enter choice 1 or 2:" option
-if [ $option -ne 1 ] || [ $option -ne 2 ]; then
+if [ $option -ne 1 ] && [ $option -ne 2 ]; then
 	echo "Unknown option has been entered"
 	exit
 fi
@@ -25,6 +29,21 @@ if [ $option -eq 1 ]; then
 elif [ $option -eq 2 ]; then
 	echo "Applying host patch"
 	git am < /users/suhassn/Nvme_HOMA_diffs/target.diff
+fi
+
+sh /users/suhassn/cloud_lab_nvme_homa_scripts/string_edit.sh
+
+cd /users/suhassn/HomaModule/
+
+make
+
+
+if [ $option -eq 1 ]; then
+	echo "Building Target"
+	sh /users/suhassn/nvmescripts/makemodules.sh
+elif [ $option -eq 2 ]; then
+	echo "Building Host"
+	sh /users/suhassn/nvmescripts/makehostmodules.sh
 fi
 
 
