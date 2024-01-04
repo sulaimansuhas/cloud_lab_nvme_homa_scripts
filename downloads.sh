@@ -28,7 +28,7 @@ if [ $option -eq 1 ]; then
 	git am < /users/suhassn/Nvme_HOMA_diffs/target.diff
 elif [ $option -eq 2 ]; then
 	echo "Applying host patch"
-	git am < /users/suhassn/Nvme_HOMA_diffs/target.diff
+	git am < /users/suhassn/Nvme_HOMA_diffs/host.diff
 fi
 
 sh /users/suhassn/cloud_lab_nvme_homa_scripts/string_edit.sh
